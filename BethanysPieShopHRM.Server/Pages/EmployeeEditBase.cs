@@ -88,9 +88,9 @@ namespace BethanysPieShopHRM.Server.Pages
             else
             {
                 await EmployeeDataService.UpdateEmployee(Employee);
-                //StatusClass = "alert-success";
-                //Message = "Employee updated successfully.";
-                //Saved = true;
+                ////StatusClass = "alert-success";
+                ////Message = "Employee updated successfully.";
+                ////Saved = true;
             }
         }
     }
