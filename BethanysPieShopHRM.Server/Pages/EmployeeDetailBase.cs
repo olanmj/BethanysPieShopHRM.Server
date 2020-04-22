@@ -21,7 +21,7 @@ namespace BethanysPieShopHRM.Server.Pages
 		[Inject]
 		public ICountryDataService CountryDataService { get; set; }
 
-		public Employee Employee { get; set; } = new Employee();
+		public EmployeeModel Employee { get; set; } = new EmployeeModel();
 		public List<Marker> MapMarkers { get; set; } = new List<Marker>();
 
 		protected override async Task OnInitializedAsync()

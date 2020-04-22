@@ -10,6 +10,7 @@ namespace BethanysPieShopHRM.Server.Components
     public class EmployeeRowBase : ComponentBase
     {
         [Parameter]
-        public Employee Employee { get; set; }
+        public EmployeeModel Employee { get; set; }
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace BethanysPieShopHRM.Shared
 {
@@ -39,5 +41,34 @@ namespace BethanysPieShopHRM.Shared
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+
+        public IEnumerable<EmployeeBenefit> EmployeeBenefits { get; set; }
+
+        public EmployeeModel ToModel()
+        {
+            return new EmployeeModel
+            {
+                EmployeeId = EmployeeId,
+                CountryId = CountryId,
+                MaritalStatus = MaritalStatus,
+                BirthDate = BirthDate,
+                City = City,
+                Email = Email,
+                FirstName = FirstName,
+                LastName = LastName,
+                Gender = Gender,
+                PhoneNumber = PhoneNumber,
+                Smoker = Smoker,
+                Street = Street,
+                Zip = Zip,
+                JobCategoryId = JobCategoryId,
+                Comment = Comment,
+                ExitDate = ExitDate,
+                JoinedDate = JoinedDate,
+                HasPremiumBenefits = EmployeeBenefits != null
+                    && EmployeeBenefits.Any(b => b.Benefit.Premium)
+            };
+        }
+
     }
 }

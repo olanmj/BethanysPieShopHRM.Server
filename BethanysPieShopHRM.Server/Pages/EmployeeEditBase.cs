@@ -21,7 +21,7 @@ namespace BethanysPieShopHRM.Server.Pages
 
         [Parameter]
         public string EmployeeId { get; set; }
-        public Employee Employee { get; set; } = new Employee();
+        public EmployeeModel Employee { get; set; } = new EmployeeModel();
         public List<Country> Countries { get; set; } = new List<Country>();
         public List<JobCategory> JobCategories { get; set; } = new List<JobCategory>();
 
@@ -43,7 +43,7 @@ namespace BethanysPieShopHRM.Server.Pages
             if (employeeId == 0)  // No Id, new employee being created
             {
                 // Add default 
-                Employee = new Employee { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now };
+                Employee = new EmployeeModel { CountryId = 1, JobCategoryId = 1, BirthDate = DateTime.Now };
             } else
             {
                 Employee = await EmployeeDataService.GetEmployeeDetails(int.Parse(EmployeeId));

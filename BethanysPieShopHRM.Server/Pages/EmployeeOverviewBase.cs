@@ -14,7 +14,7 @@ namespace BethanysPieShopHRM.Server.Pages
     {
 		[Inject]
 		public IEmployeeDataService EmployeeDataService { get; set; }
-		public IEnumerable<Employee> Employees { get; set; }
+		public IEnumerable<EmployeeModel> Employees { get; set; }
 
 		//private List<Country> Countries { get; set; }
 
