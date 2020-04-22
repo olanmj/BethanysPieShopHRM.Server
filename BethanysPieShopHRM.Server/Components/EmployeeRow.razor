@@ -1,0 +1,16 @@
+﻿@inherits EmployeeRowBase
+
+<tr>
+    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}-small.jpg")" class="rounded-circle" /></td>
+    <td>@Employee.EmployeeId</td>
+    <td>@Employee.FirstName</td>
+    <td>@Employee.LastName</td>
+    <td>
+        <a href="@($"employeedetail/{Employee.EmployeeId}")" class="btn btn-primary ">
+            <i class="fas fa-info-circle"></i>
+        </a>
+        <a href="@($"employeeedit/{Employee.EmployeeId}")" class="btn btn-primary ">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+</tr>
