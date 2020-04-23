@@ -12,8 +12,17 @@
         <a href="@($"employeeedit/{Employee.EmployeeId}")" class="btn btn-primary ">
             <i class="fas fa-edit"></i>
         </a>
-        <a href="" class="btn btn-primary table-btn" @onclick="e => Employee.ShowBenefits = !Employee.ShowBenefits">
-            <i class="fas fa-comment-dollar"></i>
-        </a>
+        <div class="btn btn-primary table-btn" @onclick="e => Employee.ShowBenefits = !Employee.ShowBenefits">
+            <i class="fas fa-thumbs-up"></i>
+        </div>
     </td>
 </tr>
+
+@if (Employee.ShowBenefits)
+{
+    <tr>
+        <td colspan="5">
+            <BenefitSelector Employee="Employee"></BenefitSelector>
+        </td>
+    </tr>
+} 
