@@ -3,10 +3,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BethanysPieShopHRM.Api.Migrations
 {
-    public partial class Initial : Migration
+    public partial class startover : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Benefits",
+                columns: table => new
+                {
+                    BenefitId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(maxLength: 100, nullable: true),
+                    Premium = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Benefits", x => x.BenefitId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Countries",
                 columns: table => new
@@ -39,10 +53,10 @@ namespace BethanysPieShopHRM.Api.Migrations
                 {
                     EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: false),
                     Street = table.Column<string>(nullable: true),
                     Zip = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
@@ -51,7 +65,7 @@ namespace BethanysPieShopHRM.Api.Migrations
                     Smoker = table.Column<bool>(nullable: false),
                     MaritalStatus = table.Column<int>(nullable: false),
                     Gender = table.Column<int>(nullable: false),
-                    Comment = table.Column<string>(nullable: true),
+                    Comment = table.Column<string>(maxLength: 1000, nullable: true),
                     JoinedDate = table.Column<DateTime>(nullable: true),
                     ExitDate = table.Column<DateTime>(nullable: true),
                     JobCategoryId = table.Column<int>(nullable: false),
@@ -72,6 +86,34 @@ namespace BethanysPieShopHRM.Api.Migrations
                         column: x => x.JobCategoryId,
                         principalTable: "JobCategories",
                         principalColumn: "JobCategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeBenefits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    BenefitId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeBenefits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeBenefits_Benefits_BenefitId",
+                        column: x => x.BenefitId,
+                        principalTable: "Benefits",
+                        principalColumn: "BenefitId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeBenefits_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -117,6 +159,28 @@ namespace BethanysPieShopHRM.Api.Migrations
                 columns: new[] { "EmployeeId", "BirthDate", "City", "Comment", "CountryId", "Email", "ExitDate", "FirstName", "Gender", "JobCategoryId", "JoinedDate", "LastName", "Latitude", "Longitude", "MaritalStatus", "PhoneNumber", "Smoker", "Street", "Zip" },
                 values: new object[] { 2, new DateTime(1979, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Antwerp", "Lorem Ipsum", 2, "gill@bethanyspieshop.com", null, "Gill", 0, 1, new DateTime(2017, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cleeren", 50.850299999999997, 4.3517000000000001, 0, "33999909923", false, "New Street", "2000" });
 
+            migrationBuilder.InsertData(
+                table: "Benefits",
+                columns: new[] { "BenefitId", "Description", "Premium" },
+                values: new object[,]
+                {
+                    { 1, "Health Insurance", false },
+                    { 2, "Paid Time Off", false },
+                    { 3, "Wellness", false },
+                    { 4, "Education", false },
+                    { 5, "Store Discount", false }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeBenefits_BenefitId",
+                table: "EmployeeBenefits",
+                column: "BenefitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeBenefits_EmployeeId",
+                table: "EmployeeBenefits",
+                column: "EmployeeId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_CountryId",
                 table: "Employees",
@@ -128,8 +192,15 @@ namespace BethanysPieShopHRM.Api.Migrations
                 column: "JobCategoryId");
         }
 
+
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EmployeeBenefits");
+
+            migrationBuilder.DropTable(
+                name: "Benefits");
+
             migrationBuilder.DropTable(
                 name: "Employees");
 

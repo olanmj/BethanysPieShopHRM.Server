@@ -1,6 +1,9 @@
 ﻿@inherits EmployeeRowBase
 
-<tr>
+@{ 
+    var cssClass = Employee.HasPremiumBenefits ? "table-success" : "";
+}
+<tr class="cssClass">
     <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}-small.jpg")" class="rounded-circle" /></td>
     <td>@Employee.EmployeeId</td>
     <td>@Employee.FirstName</td>
@@ -13,7 +16,7 @@
             <i class="fas fa-edit"></i>
         </a>
         <div class="btn btn-primary table-btn" @onclick="e => Employee.ShowBenefits = !Employee.ShowBenefits">
-            <i class="fas fa-thumbs-up"></i>
+            <i class="fas fa-comment-dollar"></i>
         </div>
     </td>
 </tr>
@@ -22,7 +25,7 @@
 {
     <tr>
         <td colspan="5">
-            <BenefitSelector Employee="Employee"></BenefitSelector>
+            <BenefitSelector @key="Employee" Employee="Employee" OnPremiumToggle="PremiumToggle"></BenefitSelector>
         </td>
     </tr>
 } 

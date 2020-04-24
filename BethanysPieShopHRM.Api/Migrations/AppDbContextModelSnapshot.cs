@@ -35,7 +35,7 @@ namespace BethanysPieShopHRM.Api.Migrations
 
                     b.HasKey("BenefitId");
 
-                    b.ToTable("Benefit");
+                    b.ToTable("Benefits");
                 });
 
             modelBuilder.Entity("BethanysPieShopHRM.Shared.Country", b =>
@@ -245,7 +245,7 @@ namespace BethanysPieShopHRM.Api.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("EmployeeBenefit");
+                    b.ToTable("EmployeeBenefits");
                 });
 
             modelBuilder.Entity("BethanysPieShopHRM.Shared.JobCategory", b =>
