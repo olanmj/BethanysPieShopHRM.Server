@@ -8,19 +8,49 @@ else
 {
     <div class="row">
         <div class="col-md-8">
-            <table class="table table-sm">
+            <TableTemplate Items="Benefits" IsSmall="true">
+                <TableHeader>
+                    <th class="w-auto">Benefit</th>
+                    <th class="w-25">Start Date</th>
+                    <th class="w-25">End Date</th>
+                </TableHeader>
+                <RowTemplate Context="benefit">
+                    <td>
+                        <input type="checkbox" checked="@benefit.Selected"
+                               @onchange="e => CheckBoxChanged(e, benefit)" />
+                    </td>
+                    <td>@benefit.Description</td>
+
+                    @if (benefit.Selected)
+                    {
+                        <td>@benefit.StartDate</td>
+                        <td>
+                            <DateField @bind-Date="benefit.EndDate"></DateField>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                        <td></td>
+                    }
+                </RowTemplate>
+            </TableTemplate>
+            
+            
+            @*  Markup before templates added
+                <table class="table table-sm">
                 <tr>
                     <th class="w-auto"></th>
                     <th class="w-auto">Benefit</th>
-                    @*<th class="w-25">Start date</th>
-                        <th class="w-25">End date</th>*@
+                    <th class="w-25">Start date</th>
+                        <th class="w-25">End date</th>
                 </tr>
                 @foreach (var benefit in Benefits)
                 {
                     <tr @key="benefit">
                         <td>
                             <input type="checkbox" checked="@benefit.Selected" @onchange="e => CheckBoxChanged(e, benefit)" />
-                            @* This does 2-way data binding but more happens in this case --> @bind="benefit.Selected" />*@
+                             This does 2-way data binding but more happens in this case --> @bind="benefit.Selected" />
                         </td>
                         <td>@benefit.Description</td>
 
@@ -28,7 +58,7 @@ else
                         {
                             <td>@benefit.StartDate</td>
                             <td>
-                                <input type="date" @bind="benefit.EndDate" />
+                                <DateField @bind-Date="benefit.EndDate"></DateField>
                             </td>
                         }
                         else
@@ -38,7 +68,7 @@ else
                         }
                     </tr>
                 }
-            </table>
+            </table>*@
         </div>
         <div class="col-md-4 mt-1">
             <button class="btn btn-primary" disabled="@SaveButtonDisabled"
